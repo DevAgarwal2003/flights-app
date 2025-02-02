@@ -60,7 +60,7 @@ def scrape_mmt(source, destination, travel_date):
 
     # Set up ChromeDriver
     # service = Service('D:/SeleniumDrivers/chromedriver.exe')
-    chrome_driver_path = Path(__file__).parent / "chromedriver"
+    chrome_driver_path = Path(__file__).parent / "chromedriver.exe"
     if not chrome_driver_path.exists():
         os.system("wget -O chromedriver https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip && unzip chromedriver_linux64.zip")
     service = Service(str(chrome_driver_path))
