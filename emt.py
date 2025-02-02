@@ -47,6 +47,12 @@ def scrape_emt(source, destination, travel_date):
     # source = "BOM"  # Mumbai
     # destination = "DEL"  # Delhi
     # travel_date = "30/01/2025"
+    os.system("apt-get update")
+    os.system("apt-get install -y wget unzip curl")
+    os.system("wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -")
+    os.system('echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list')
+    os.system("apt-get update")
+    os.system("apt-get install -y google-chrome-stable")
 
     url = build_url(source, destination, travel_date)
     chrome_options = Options()
@@ -58,10 +64,7 @@ def scrape_emt(source, destination, travel_date):
         
     # Set up ChromeDriver
     # service = Service('D:/SeleniumDrivers/chromedriver.exe')
-    chrome_driver_path = Path(__file__).parent / "chromedriver.exe"  
-    if not chrome_driver_path.exists():
-        os.system("wget -O chromedriver https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip && unzip chromedriver_linux64.zip")
-    service = Service(str(chrome_driver_path))
+    service = Service(ChromeDriverManager().install())
     # Create the WebDriver instance with the Service
     driver = webdriver.Chrome(options = chrome_options, service=service)
 
