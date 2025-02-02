@@ -6,6 +6,7 @@ from urllib.parse import quote
 from bs4 import BeautifulSoup
 from requests_html import HTMLSession
 from pathlib import Path
+import os 
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
@@ -58,6 +59,8 @@ def scrape_emt(source, destination, travel_date):
     # Set up ChromeDriver
     # service = Service('D:/SeleniumDrivers/chromedriver.exe')
     chrome_driver_path = Path(__file__).parent / "chromedriver"  
+    if not chrome_driver_path.exists():
+    os.system("wget -O chromedriver https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip && unzip chromedriver_linux64.zip")
     service = Service(str(chrome_driver_path))
     # Create the WebDriver instance with the Service
     driver = webdriver.Chrome(options = chrome_options, service=service)
