@@ -10,6 +10,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 import requests
+import os
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -59,7 +60,9 @@ def scrape_mmt(source, destination, travel_date):
 
     # Set up ChromeDriver
     # service = Service('D:/SeleniumDrivers/chromedriver.exe')
-    chrome_driver_path = Path(__file__).parent / "chromedriver"  
+    chrome_driver_path = Path(__file__).parent / "chromedriver"
+    if not chrome_driver_path.exists():
+    os.system("wget -O chromedriver https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip && unzip chromedriver_linux64.zip")
     service = Service(str(chrome_driver_path))
     options = [
         "--headless",
